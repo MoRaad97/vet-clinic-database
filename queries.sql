@@ -131,10 +131,6 @@ COMMIT;
   ORDER BY num_of_visits DESC LIMIT 1
   ;
 -- Who was Maisy Smith's first visit?
-  SELECT vets.name, animals.name As animal_name, visits.visit_date FROM animals 
-   JOIN visits ON visits.animals_id = animals.id
-   JOIN vets ON vets.vets_id = visits.vets_id
-
 SELECT vets.name, animals.name , visits.visit_date FROM visits
 JOIN vets ON vets.vets_id = visits.vets_id
 JOIN animals ON animals.id = visits.animals_id
@@ -171,3 +167,10 @@ SELECT species.name FROM species
   ON specialize_table.vets_id = visits.vets_id
   WHERE visits.vets_id = 2 ) AS main) As species_id_table
   ON species.species_id = species_id_table.max;
+
+
+
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
