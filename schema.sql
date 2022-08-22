@@ -57,3 +57,33 @@ CREATE TABLE visits (
     visit_date DATE NOT NULL,
 	PRIMARY KEY (animals_id, vets_id, visit_date)
 );
+
+ALTER TABLE visits 
+RENAME COLUMN animals_id TO animal_id;
+ALTER TABLE visits 
+RENAME COLUMN visit_date TO date_of_visit;
+ALTER TABLE visits 
+RENAME COLUMN vets_id TO vet_id;
+
+
+ALTER TABLE owners 
+ALTER COLUMN age 
+DROP NOT NULL;
+
+ALTER TABLE visits
+  DROP CONSTRAINT visits_pkey;
+
+INSERT INTO visits (animal_id, vet_id, date_of_visit)
+ SELECT * FROM (SELECT id FROM animals) animal_ids, 
+ (SELECT vets_id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') 
+ visit_timestamp;
+
+ insert into owners (full_name, email)
+  select 'Owner ' || generate_series(1,2500000), 'owner_' || generate_series(1,2500000) || '@mail.com';
+
+
+CREATE INDEX animal_id ON visits (animal_id);
+
+CREATE INDEX vet_id ON visits (vet_id);
+
+CREATE INDEX owner_email ON owners (email);
