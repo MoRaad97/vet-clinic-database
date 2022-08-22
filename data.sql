@@ -106,3 +106,9 @@ VALUES (1,1, date '2020-05-24'),
 (10,3, date '2020-05-24'),
 (10,1, date '2021-01-11')
 ;
+
+
+DELETE FROM animals;
+DELETE FROM visits;
+DELETE FROM owners;
+
